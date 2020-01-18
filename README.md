@@ -1,32 +1,40 @@
 # xrdm
 X Resource Database Manager, a small yet powerful command-line tool that allow users to instantly change/set X Resource Database. 
-You don't need to change your ~/.Xresouces every time from now on!
+Comment and uncomment colorscheme from your ~/.Xresources is not fun at all. Having hundreds of lines of commented colorscheme is not fun at all either.
+Xrdm allows you to have beautifully organized list of colorschemes, settings, and fonts.
+Xrdm also allows you to easily change/list/edit the segmented configurations.
+From now on, you would not need to comment/uncomment ~/.Xresouces every time!
 
+<!--ts-->
+   * [xrdm](#xrdm)
+      * [Table of Contents](#table-of-contents)
+      * [Requirements](#requirements)
+         * [Dependencies](#dependencies)
+      * [Installation](#installation)
+         * [Script](#script)
+         * [Directories](#directories)
+         * [Enviromental Variables](#enviromental-variables)
+         * [Auto Completion](#auto-completion)
+         * [Quick Installation](#quick-installation)
+      * [Why?](#why)
+      * [Usage](#usage)
+      * [Formats](#formats)
+         * [Presets](#presets)
+         * [Font](#font)
+         * [Colorscheme](#colorscheme)
 
-## Table of Contents
-* [Requirements](#requirements)
-	 * [Dependencies](#dependencies)
-* [Installation](#installation)
-	 * [Directories](#directories)
-	 * [Enviromental Variables](#enviromental-variables)
-	 * [Auto Completion](#auto-completion)
-	 * [Quick Installation](#quick-installation)
-* [Usage](#usage)
-* [Formats](#formats)
-	 * [Presets](#presets)
-	 * [Font](#font)
-	 * [Colorscheme](#colorscheme)
+<!-- Added by: seungheonoh, at: Sat 18 Jan 2020 05:44:31 PM CST -->
 
+<!--te-->
 
 ## Requirements
 ### Dependencies
- - xrdb
-  - Comes with X11-apps package
+* xrdb
+	 * Comes with X11-apps package
 
 ## Installation
-1. copy the script to your bin(or any path). 
-2. *(Optional but Strongly recommanded)* add ```source xrdm``` for bash autocompletion
-3. You're ready to go. Enjoy!
+### Script
+copy the script to your bin(or any path)
 
 ### Directories
 Make some directories to store each files of X Resources. 
@@ -55,7 +63,9 @@ Here's my recommandation:
    +--> |programs |
         +---------+
 ```
-However, as long as the enviromental variables are current, it should workd fine.
+However, as long as the enviromental variables are current, it should workd fine. From now on, you will need to store segmented configure files only at each directories depends on their category. These seperated directories will allow user to more effeciently manage their many different kinds of options and settings. 
+
+Also, backing up the directory to github(or any other services) will allow user to easily migrate one system to one another
 
 ### Enviromental Variables
 Here's example for enviromental variables for directories above.
@@ -71,12 +81,12 @@ export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
 
 ### Auto Completion
 Auto completeion is one thing that makes xrdm powerful, <tab> <tab> and boom!
-Inorder to use auto completion the script has to be sourced. Here's example.
+In order to use auto completion, the script has to be sourced. Here's example.
 ```bash
 # at ~/.bashrc
 source xrdm
 ```
-Unlike some other programs, different auto completion configuration is not reqired!
+Unlike some other programs, external auto completion script is not reqired!
 
 ### Quick Installation
 ```bash
@@ -102,7 +112,23 @@ mkdir $XRESOURCE_PRESET_DIR
 mkdir $XRESOURCE_PROGRAM_DIR
 ```
 Completed!
-Now put fonts settings at font, color settings at color, and so on!
+Start, enlarging your collection of colorscheme, configurations, and fonts!
+
+## Why?
+I bet most of X users have this line in their ```~/.xinitrc```
+```
+xrdb ~/.Xresources
+```
+where ~/.Xresouces contains few commented colorschemes and configurations; when you need to change colorscheme, you just have to uncomment the whole colorscheme. How ineffecient. With xrdm, it's just 
+```
+# at ~/.xinitrc
+xrdm preset (your preset)
+```
+and if you need to change font/colorscheme/program config just run
+```
+$ xrdm {color, font, program} (preconfigure file)
+```
+without involving any uncommenting, commenting, tidious jobs.
 
 ## Usage
 ```
@@ -201,7 +227,8 @@ program xterm
 program dmenu
 program rofi
 ```
-This not only makes make ~/.Xresource looks cleaner, but makes it more easy to tweak and recombinate
+This not only makes make ~/.Xresource looks cleaner, but makes it more easy to tweak and recombinate. 
+Preset files can be configured as colection of xrdm subcommands. One subcommands at a line.
 
 ### Font
 ```
@@ -225,3 +252,5 @@ xterm*faceName: xft:font1:pixelsize=12
 .
 .
 ```
+
+
