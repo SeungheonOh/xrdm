@@ -3,6 +3,20 @@ X Resource Database Manager, a small yet powerful command-line tool that allow u
 You don't need to change your ~/.Xresouces every time from now on!
 
 
+## Table of Contents
+* [Requirements](#requirements)
+	 * [Dependencies](#dependencies)
+* [Installation](#installation)
+	 * [Directories](#directories)
+	 * [Enviromental Variables](#enviromental-variables)
+	 * [Auto Completion](#auto-completion)
+	 * [Quick Installation](#quick-installation)
+* [Usage](#usage)
+* [Formats](#formats)
+	 * [Presets](#presets)
+	 * [Font](#font)
+	 * [Colorscheme](#colorscheme)
+
 
 ## Requirements
 ### Dependencies
