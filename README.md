@@ -2,43 +2,19 @@
 X Resource Database Manager, a small yet powerful command-line tool that allow users to instantly change/set X Resource Database. 
 You don't need to change your ~/.Xresouces every time from now on!
 
-# Requirements
-## Dependencies
+
+
+## Requirements
+### Dependencies
  - xrdb
   - Comes with X11-apps package
 
-# Installation
+## Installation
 1. copy the script to your bin(or any path). 
 2. *(Optional but Strongly recommanded)* add ```source xrdm``` for bash autocompletion
 3. You're ready to go. Enjoy!
 
-## Quick Installation
-```bash
-# Setting enviromental variables
-cat > ~/.bashrc << "EOF"
-# Begin xrdm settings 
-export XRESOURCE_DIR=~/.Xresource.d
-export XRESOURCE_FONT_DIR=$XRESOURCE_DIR/fonts
-export XRESOURCE_COLOR_DIR=$XRESOURCE_DIR/colors
-export XRESOURCE_PRESET_DIR=$XRESOURCE_DIR/presets
-export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
-
-source xrdm
-# End xrdm settings 
-EOF
-```
-```bash
-# Creating directories
-mkdir $XRESOURCE_DIR
-mkdir $XRESOURCE_FONT_DIR
-mkdir $XRESOURCE_COLOR_DIR
-mkdir $XRESOURCE_PRESET_DIR
-mkdir $XRESOURCE_PROGRAM_DIR
-```
-Completed!
-Now put fonts settings at font, color settings at color, and so on!
-
-## Directories
+### Directories
 Make some directories to store each files of X Resources. 
 Here's my recommandation:
 ```
@@ -67,8 +43,7 @@ Here's my recommandation:
 ```
 However, as long as the enviromental variables are current, it should workd fine.
 
-
-## Enviromental Variables
+### Enviromental Variables
 Here's example for enviromental variables for directories above.
 Again, this coud be varied depends on your directory location.
 ```bash
@@ -80,7 +55,7 @@ export XRESOURCE_PRESET_DIR=$XRESOURCE_DIR/presets
 export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
 ```
 
-## Auto Completion
+### Auto Completion
 Auto completeion is one thing that makes xrdm powerful, <tab> <tab> and boom!
 Inorder to use auto completion the script has to be sourced. Here's example.
 ```bash
@@ -89,7 +64,33 @@ source xrdm
 ```
 Unlike some other programs, different auto completion configuration is not reqired!
 
-# Usage
+### Quick Installation
+```bash
+# Setting enviromental variables
+cat > ~/.bashrc << "EOF"
+# Begin xrdm settings 
+export XRESOURCE_DIR=~/.Xresource.d
+export XRESOURCE_FONT_DIR=$XRESOURCE_DIR/fonts
+export XRESOURCE_COLOR_DIR=$XRESOURCE_DIR/colors
+export XRESOURCE_PRESET_DIR=$XRESOURCE_DIR/presets
+export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
+
+source xrdm
+# End xrdm settings 
+EOF
+```
+```bash
+# Creating directories
+mkdir $XRESOURCE_DIR
+mkdir $XRESOURCE_FONT_DIR
+mkdir $XRESOURCE_COLOR_DIR
+mkdir $XRESOURCE_PRESET_DIR
+mkdir $XRESOURCE_PROGRAM_DIR
+```
+Completed!
+Now put fonts settings at font, color settings at color, and so on!
+
+## Usage
 ```
    _  _____  ___  __  ___
   | |/_/ _ \/ _ \/  |/  /
@@ -112,9 +113,9 @@ SUBCOMMANDS:
 
 ```
 
-# Formats
+## Formats
 Each part of configuration should be segmented and stored based on it's category.
-## Presets
+### Presets
 preset is a powerful feature, it's a presetting value of configuration that is much controllable and user-friendly then having whole ~/.Xresource file.
 
 My ~/.Xresouces file:
@@ -188,39 +189,25 @@ program rofi
 ```
 This not only makes make ~/.Xresource looks cleaner, but makes it more easy to tweak and recombinate
 
-## Font
+### Font
 ```
-! $XRESOURCE_FONT_DIR/iosevka
+! $XRESOURCE_FONT_DIR/font1
 ! ST
-st.font: Iosevka Term Slab:size=12
-
+st.font: font1:size=12
 ! urxvt
-URxvt*font: xft:Iosevka Term Slab:pixelsize=12
-
+URxvt*font: xft:font1:pixelsize=12
 ! Xterm
-xterm*faceName: xft:Iosevka Term Slab:pixelsize=12
+xterm*faceName: xft:font1:pixelsize=12
 ```
-## Colorscheme
-Colorscheme:
+### Colorscheme
 ```
-! $XRESOURCE_COLOR_DIR/dracula
-! Dracula Xresources palette
+! $XRESOURCE_COLOR_DIR/color1
+! ColorScheme1 Xresources palette
 *.foreground: #F8F8F2
 *.background: #282A36
 *.color0:     #000000
 *.color8:     #4D4D4D
-*.color1:     #FF5555
-*.color9:     #FF6E67
-*.color2:     #50FA7B
-*.color10:    #5AF78E
-*.color3:     #F1FA8C
-*.color11:    #F4F99D
-*.color4:     #BD93F9
-*.color12:    #CAA9FA
-*.color5:     #FF79C6
-*.color13:    #FF92D0
-*.color6:     #8BE9FD
-*.color14:    #9AEDFE
-*.color7:     #BFBFBF
-*.color15:    #E6E6E6
+.
+.
+.
 ```
