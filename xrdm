@@ -1,0 +1,109 @@
+#!/bin/bash
+
+VERSION=1.0.0
+
+print_help() {
+	echo '   _  _____  ___  __  ___'
+	echo '  | |/_/ _ \/ _ \/  |/  /'
+	echo ' _>  </ , _/ // / /|_/ / '
+	echo '/_/|_/_/|_/____/_/  /_/  '
+	echo 
+	echo 'X Resource Database Manager'
+	echo 
+	echo 'Usage: xrdm SUBCOMMAND'
+	echo
+	echo 'SUBCOMMANDS:'
+	echo '  font - List fonts settings/Apply fonts'
+	echo '  color - List colors settings/Apply colors'
+	echo '  program - List programs settings/Apply settings'
+	echo '  preset - List presets/Apply settings'
+	echo '  edit - Edit given settings file'
+	echo '  add [Type] - Add new settings of the [Type]'
+	echo '  version - print version'
+	echo '  help - print help message'
+	echo
+}
+
+_auto_completion() {
+	if [ "${#COMP_WORDS[@]}" -eq "2" ]; then 
+		COMPREPLY=($(compgen -W "add color font program edit preset" "${COMP_WORDS[1]}"))
+		return
+	fi
+	case ${COMP_WORDS[1]} in 
+		font) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_FONT_DIR)" "${COMP_WORDS[2]}"));;
+		color) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_COLOR_DIR)" "${COMP_WORDS[2]}"));;
+		preset) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_PRESET_DIR)" "${COMP_WORDS[2]}"));;
+		program) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_PROGRAM_DIR)" "${COMP_WORDS[2]}"));;
+		add) COMPREPLY=($(compgen -W "font color program preset" "${COMP_WORDS[2]}"));;
+		edit|view) COMPREPLY=($(compgen -W "$(find $XRESOURCE_DIR/ -type f -follow -print | sed -e 's@.*/@@')" "${COMP_WORDS[2]}"));;
+	esac
+}
+
+merge_xresource() {
+	[ ! -f "$1" ] && echo "File not exist" && exit 0
+	xrdb -merge "$1" > /dev/null
+	[ $? != 0 ] && echo "failed" && exit 0
+}
+
+font() {
+	[ -z $2 ] && ls "$XRESOURCE_FONT_DIR" && exit 0
+	merge_xresource $XRESOURCE_FONT_DIR/$2
+}
+
+color() {
+	[ -z $2 ] && ls "$XRESOURCE_COLOR_DIR" && exit 0
+	merge_xresource $XRESOURCE_COLOR_DIR/$2
+}
+
+program() {
+	[ -z $2 ] && ls "$XRESOURCE_PROGRAM_DIR" && exit 0
+	merge_xresource $XRESOURCE_PROGRAM_DIR/$2
+}
+
+preset() {
+	[ -z $2 ] && ls "$XRESOURCE_PRESET_DIR" && exit 0
+	[ ! -f "$XRESOURCE_PRESET_DIR/$2" ] && echo "File not exist" && exit 0
+	xrdb -remove
+	while read conf; do
+		$0 $conf
+	done < $XRESOURCE_PRESET_DIR/$2
+}
+
+edit() {
+	[ -z $(find $XRESOURCE_DIR -name $2) ] && echo "File not found" && exit 0
+	$EDITOR $(find $XRESOURCE_DIR -name $2)
+}
+
+add() {
+	[ -z $3 ] && echo "Usage" && exit 0
+
+	filetype=""
+	case "$2" in
+		font)filetype+=$XRESOURCE_FONT_DIR;;
+		color)filetype+=$XRESOURCE_COLOR_DIR;;
+		program)filetype+=$XRESOURCE_PROGRAM_DIR;;
+		preset)filetype+=$XRESOURCE_PRESET_DIR;;
+		*)echo "Usage" && exit 0;;
+	esac
+
+	[ ! -z $(find $filetype -name $3) ] && echo "Already existing" && exit 0
+
+	$EDITOR $filetype/$3
+}
+
+main() {
+	case "$1" in
+		add) add $@;;
+		edit) edit $@;;
+		view) EDITOR="less +g" edit $@;;
+		font) font $@;;
+		color) color $@;;
+		preset) preset $@;;
+		program) program $@;;
+		version) echo $VERSION;;
+		*) print_help;;
+	esac
+}
+
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] && complete -F _auto_completion xrdm && return
+main $@
