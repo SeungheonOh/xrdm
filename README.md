@@ -1,9 +1,12 @@
 # xrdm
+<a href="https://imgur.com/441iQH5"><img src="https://i.imgur.com/441iQH5.jpg" align="right" width="400px" title="source: imgur.com" /></a>
 X Resource Database Manager, a small yet powerful command-line tool that allow users to instantly change/set X Resource Database. 
 Comment and uncomment colorscheme from your ~/.Xresources is not fun at all. Having hundreds of lines of commented colorscheme is not fun at all either.
 Xrdm allows you to have beautifully organized list of colorschemes, settings, and fonts.
 Xrdm also allows you to easily change/list/edit the segmented configurations.
 From now on, you would not need to comment/uncomment ~/.Xresouces every time!
+
+## Table of Contents
 
 <!--ts-->
    * [xrdm](#xrdm)
