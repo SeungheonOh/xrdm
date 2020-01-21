@@ -41,7 +41,7 @@ copy the script to your bin(or any path)
 
 ### Directories
 Make some directories to store each files of X Resources. 
-Here's my recommandation:
+Here's my recommendation:
 ```
 +-------------------+
 |                   |
@@ -66,13 +66,13 @@ Here's my recommandation:
    +--> |programs |
         +---------+
 ```
-However, as long as the enviromental variables are current, it should workd fine. From now on, you will need to store segmented configure files only at each directories depends on their category. These seperated directories will allow user to more effeciently manage their many different kinds of options and settings. 
+However, as long as the environmental variables are current, it should work fine. From now on, you will need to store segmented configure files only at each directories depends on their category. These separated directories will allow user to more efficiently manage their many different kinds of options and settings. 
 
 Also, backing up the directory to github(or any other services) will allow user to easily migrate one system to one another
 
-### Enviromental Variables
-Here's example for enviromental variables for directories above.
-Again, this coud be varied depends on your directory location.
+### Environmental Variables
+Here's example for environmental variables for directories above.
+Again, this could be varied depends on your directory location.
 ```bash
 # at ~/.bashrc
 export XRESOURCE_DIR=~/.Xresource.d
@@ -83,13 +83,13 @@ export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
 ```
 
 ### Auto Completion
-Auto completeion is one thing that makes xrdm powerful, <tab> <tab> and boom!
+Auto completion is one thing that makes xrdm powerful, <tab> <tab> and boom!
 In order to use auto completion, the script has to be sourced. Here's example.
 ```bash
 # at ~/.bashrc
 source xrdm
 ```
-Unlike some other programs, external auto completion script is not reqired!
+Unlike some other programs, external auto completion script is not required!
 
 ### Quick Installation
 ```bash
