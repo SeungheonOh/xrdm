@@ -30,13 +30,36 @@ _auto_completion() {
 		return
 	fi
 	case ${COMP_WORDS[1]} in 
-		font) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_FONT_DIR)" "${COMP_WORDS[2]}"));;
-		color) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_COLOR_DIR)" "${COMP_WORDS[2]}"));;
-		preset) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_PRESET_DIR)" "${COMP_WORDS[2]}"));;
-		program) COMPREPLY=($(compgen -W "$(ls $XRESOURCE_PROGRAM_DIR)" "${COMP_WORDS[2]}"));;
+		font) COMPREPLY=($(compgen -W "$(ls $XRDM_FONT_DIR)" "${COMP_WORDS[2]}"));;
+		color) COMPREPLY=($(compgen -W "$(ls $XRDM_COLOR_DIR)" "${COMP_WORDS[2]}"));;
+		preset) COMPREPLY=($(compgen -W "$(ls $XRDM_PRESET_DIR)" "${COMP_WORDS[2]}"));;
+		program) COMPREPLY=($(compgen -W "$(ls $XRDM_PROGRAM_DIR)" "${COMP_WORDS[2]}"));;
 		add) COMPREPLY=($(compgen -W "font color program preset" "${COMP_WORDS[2]}"));;
-		edit|view) COMPREPLY=($(compgen -W "$(find $XRESOURCE_DIR/ -type f -follow -print | sed -e 's@.*/@@')" "${COMP_WORDS[2]}"));;
+		edit|view) COMPREPLY=($(compgen -W "$(find $XRDM_DIR/ -type f -follow -print | sed -e 's@.*/@@')" "${COMP_WORDS[2]}"));;
 	esac
+}
+
+update_color() {
+	sequence=""
+	while read l; do
+		[[ $l != *"*."* ]] && continue
+		lineseg=( $l )
+		index=$(echo $l | sed -e "s/\s.*//" -e "s/^*.//" -e "s/color//" -e "s/:$//")
+		color=$(echo $l | sed -e "s/.*\s//")
+		if [ "$index" == "background" ]; then
+			sequence+="\033]11;${color}\007" # Background
+			sequence+="\033]17;${color}\007" # Background
+			sequence+="\033]708;${color}\007" # Border
+		elif [ "$index" == "foreground" ]; then
+			sequence+="\033]10;${color}\007" # Background
+			sequence+="\033]19;${color}\007" # Background
+		else
+			sequence+="\033]4;${index};${color}\007" # Colors
+		fi
+	done <<< "$(xrdb -query)"
+	for tty in /dev/pts/[0-9]*; do
+		printf "%b" "$sequence" > "$tty"
+	done
 }
 
 merge_xresource() {
@@ -46,32 +69,32 @@ merge_xresource() {
 }
 
 font() {
-	[ -z $2 ] && ls "$XRESOURCE_FONT_DIR" && exit 0
-	merge_xresource $XRESOURCE_FONT_DIR/$2
+	[ -z $2 ] && ls "$XRDM_FONT_DIR" && exit 0
+	merge_xresource $XRDM_FONT_DIR/$2
 }
 
 color() {
-	[ -z $2 ] && ls "$XRESOURCE_COLOR_DIR" && exit 0
-	merge_xresource $XRESOURCE_COLOR_DIR/$2
+	[ -z $2 ] && ls "$XRDM_COLOR_DIR" && exit 0
+	merge_xresource $XRDM_COLOR_DIR/$2
 }
 
 program() {
-	[ -z $2 ] && ls "$XRESOURCE_PROGRAM_DIR" && exit 0
-	merge_xresource $XRESOURCE_PROGRAM_DIR/$2
+	[ -z $2 ] && ls "$XRDM_PROGRAM_DIR" && exit 0
+	merge_xresource $XRDM_PROGRAM_DIR/$2
 }
 
 preset() {
-	[ -z $2 ] && ls "$XRESOURCE_PRESET_DIR" && exit 0
-	[ ! -f "$XRESOURCE_PRESET_DIR/$2" ] && echo "File not exist" && exit 0
+	[ -z $2 ] && ls "$XRDM_PRESET_DIR" && exit 0
+	[ ! -f "$XRDM_PRESET_DIR/$2" ] && echo "File not exist" && exit 0
 	xrdb -remove
 	while read conf; do
 		$0 $conf
-	done < $XRESOURCE_PRESET_DIR/$2
+	done < $XRDM_PRESET_DIR/$2
 }
 
 edit() {
-	[ -z $(find $XRESOURCE_DIR -name $2) ] && echo "File not found" && exit 0
-	$EDITOR $(find $XRESOURCE_DIR -name $2)
+	[ -z $(find $XRDM_DIR -name $2) ] && echo "File not found" && exit 0
+	$EDITOR $(find $XRDM_DIR -name $2)
 }
 
 add() {
@@ -79,10 +102,10 @@ add() {
 
 	filetype=""
 	case "$2" in
-		font)filetype+=$XRESOURCE_FONT_DIR;;
-		color)filetype+=$XRESOURCE_COLOR_DIR;;
-		program)filetype+=$XRESOURCE_PROGRAM_DIR;;
-		preset)filetype+=$XRESOURCE_PRESET_DIR;;
+		font)filetype+=$XRDM_FONT_DIR;;
+		color)filetype+=$XRDM_COLOR_DIR;;
+		program)filetype+=$XRDM_PROGRAM_DIR;;
+		preset)filetype+=$XRDM_PRESET_DIR;;
 		*)echo "Usage" && exit 0;;
 	esac
 
@@ -103,6 +126,7 @@ main() {
 		version) echo $VERSION;;
 		*) print_help;;
 	esac
+	[ "$XRDM_UPDATE" != "N" ] && update_color &
 }
 
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && complete -F _auto_completion xrdm && return
