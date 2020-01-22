@@ -75,11 +75,11 @@ Here's example for environmental variables for directories above.
 Again, this could be varied depends on your directory location.
 ```bash
 # at ~/.bashrc
-export XRESOURCE_DIR=~/.Xresource.d
-export XRESOURCE_FONT_DIR=$XRESOURCE_DIR/fonts
-export XRESOURCE_COLOR_DIR=$XRESOURCE_DIR/colors
-export XRESOURCE_PRESET_DIR=$XRESOURCE_DIR/presets
-export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
+export XRDM_DIR=~/.Xresource.d
+export XRDM_FONT_DIR=$XRDM_DIR/fonts
+export XRDM_COLOR_DIR=$XRDM_DIR/colors
+export XRDM_PRESET_DIR=$XRDM_DIR/presets
+export XRDM_PROGRAM_DIR=$XRDM_DIR/programs
 ```
 
 ### Auto Completion
@@ -96,11 +96,11 @@ Unlike some other programs, external auto completion script is not required!
 # Setting enviromental variables
 cat > ~/.bashrc << "EOF"
 # Begin xrdm settings 
-export XRESOURCE_DIR=~/.Xresource.d
-export XRESOURCE_FONT_DIR=$XRESOURCE_DIR/fonts
-export XRESOURCE_COLOR_DIR=$XRESOURCE_DIR/colors
-export XRESOURCE_PRESET_DIR=$XRESOURCE_DIR/presets
-export XRESOURCE_PROGRAM_DIR=$XRESOURCE_DIR/programs
+export XRDM_DIR=~/.Xresource.d
+export XRDM_FONT_DIR=$XRDM_DIR/fonts
+export XRDM_COLOR_DIR=$XRDM_DIR/colors
+export XRDM_PRESET_DIR=$XRDM_DIR/presets
+export XRDM_PROGRAM_DIR=$XRDM_DIR/programs
 
 source xrdm
 # End xrdm settings 
@@ -108,11 +108,11 @@ EOF
 ```
 ```bash
 # Creating directories
-mkdir $XRESOURCE_DIR
-mkdir $XRESOURCE_FONT_DIR
-mkdir $XRESOURCE_COLOR_DIR
-mkdir $XRESOURCE_PRESET_DIR
-mkdir $XRESOURCE_PROGRAM_DIR
+mkdir $XRDM_DIR
+mkdir $XRDM_FONT_DIR
+mkdir $XRDM_COLOR_DIR
+mkdir $XRDM_PRESET_DIR
+mkdir $XRDM_PROGRAM_DIR
 ```
 Completed!
 Start, enlarging your collection of colorscheme, configurations, and fonts!
@@ -235,7 +235,7 @@ Preset files can be configured as colection of xrdm subcommands. One subcommands
 
 ### Font
 ```
-! $XRESOURCE_FONT_DIR/font1
+! $XRDM_FONT_DIR/font1
 ! ST
 st.font: font1:size=12
 ! urxvt
@@ -245,7 +245,7 @@ xterm*faceName: xft:font1:pixelsize=12
 ```
 ### Colorscheme
 ```
-! $XRESOURCE_COLOR_DIR/color1
+! $XRDM_COLOR_DIR/color1
 ! ColorScheme1 Xresources palette
 *.foreground: #F8F8F2
 *.background: #282A36
