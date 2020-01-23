@@ -91,6 +91,18 @@ source xrdm
 ```
 Unlike some other programs, external auto completion script is not required!
 
+### Auto Color Update
+Yes, this is the instant color change. like pywal 
+Do you need any more explanation?
+
+It's truned up by default, works with most of X-based Terminal that supports Xterm internal control sequence.
+
+But if you are a wiredo who want this to be turned off, here
+```bash
+# at ~/.bashrc
+export XRDM_UPDATE=N
+```
+
 ### Quick Installation
 ```bash
 # Setting enviromental variables

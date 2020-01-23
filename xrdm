@@ -49,7 +49,7 @@ update_color() {
 		index=$(echo $l | sed -e "s/\s.*//" -e "s/^*.//" -e "s/color//" -e "s/:$//")
 		color=$(echo $l | sed -e "s/.*\s//")
 		# Note
-		# St only has partial support of VT102 standard, 
+		# St only has partial support of Xterm Control Sequence(Most X-based term have this), 
 		# instead it uses 256th color for BG, and 257th color for FG
 		if [ "$index" == "background" ]; then
 			sequence+="\033]11;${color}\007" # Background
