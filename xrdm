@@ -15,6 +15,7 @@ print_help() {
 	echo 'SUBCOMMANDS:'
 	echo '  font - List fonts settings/Apply fonts'
 	echo '  color - List colors settings/Apply colors'
+	echo '  update - Manually update all terminal colors'
 	echo '  program - List programs settings/Apply settings'
 	echo '  preset - List presets/Apply settings'
 	echo '  edit - Edit given settings file'
@@ -40,6 +41,7 @@ _auto_completion() {
 }
 
 update_color() {
+	[ "$XRDM_UPDATE" == "N" ] && return 0
 	sequence=""
 	while read l; do
 		[[ $l != *"*."* ]] && continue
@@ -126,13 +128,13 @@ main() {
 		edit) edit $@;;
 		view) EDITOR="less +g" edit $@;;
 		font) font $@;;
-		color) color $@;;
-		preset) preset $@;;
+		color) color $@ ; update_color &;;
+		update) update_color;;
+		preset) preset $@ ; update_color &;;
 		program) program $@;;
 		version) echo $VERSION;;
 		*) print_help;;
 	esac
-	[ "$XRDM_UPDATE" != "N" ] && update_color &
 }
 
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && complete -F _auto_completion xrdm && return
