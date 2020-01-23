@@ -16,8 +16,9 @@ From now on, you would not need to comment/uncomment ~/.Xresouces every time!
       * [Installation](#installation)
          * [Script](#script)
          * [Directories](#directories)
-         * [Enviromental Variables](#enviromental-variables)
+         * [Environmental Variables](#environmental-variables)
          * [Auto Completion](#auto-completion)
+         * [Auto Color Update](#auto-color-update)
          * [Quick Installation](#quick-installation)
       * [Why?](#why)
       * [Usage](#usage)
@@ -26,7 +27,7 @@ From now on, you would not need to comment/uncomment ~/.Xresouces every time!
          * [Font](#font)
          * [Colorscheme](#colorscheme)
 
-<!-- Added by: seungheonoh, at: Sat 18 Jan 2020 05:44:31 PM CST -->
+<!-- Added by: seungheonoh, at: Thu 23 Jan 2020 03:59:09 PM CST -->
 
 <!--te-->
 
