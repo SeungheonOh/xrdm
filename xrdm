@@ -49,10 +49,13 @@ update_color() {
 		if [ "$index" == "background" ]; then
 			sequence+="\033]11;${color}\007" # Background
 			sequence+="\033]17;${color}\007" # Background
+			sequence+="\033]17;${color}\007" # Background
+			sequence+="\033]4;256;${color}\007" # Background
 			sequence+="\033]708;${color}\007" # Border
 		elif [ "$index" == "foreground" ]; then
 			sequence+="\033]10;${color}\007" # Background
 			sequence+="\033]19;${color}\007" # Background
+			sequence+="\033]4;257;${color}\007" # Background
 		else
 			sequence+="\033]4;${index};${color}\007" # Colors
 		fi
