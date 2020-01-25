@@ -107,7 +107,7 @@ export XRDM_UPDATE=N
 ### Quick Installation
 ```bash
 # Setting enviromental variables
-cat > ~/.bashrc << "EOF"
+cat >> ~/.bashrc << "EOF"
 # Begin xrdm settings 
 export XRDM_DIR=~/.Xresource.d
 export XRDM_FONT_DIR=$XRDM_DIR/fonts
